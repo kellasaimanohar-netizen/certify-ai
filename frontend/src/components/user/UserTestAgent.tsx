@@ -802,9 +802,42 @@ export const UserTestAgent: React.FC<UserTestAgentProps> = ({
 
             {inputType === 'yaml' && (
               <div>
-                <label style={{ fontSize: '14px', fontWeight: '700', color: 'var(--text-primary)', display: 'block', marginBottom: '8px' }}>
-                  Agent Specification YAML / Manifest:
-                </label>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                  <label style={{ fontSize: '14px', fontWeight: '700', color: 'var(--text-primary)' }}>
+                    Agent Specification YAML / Manifest:
+                  </label>
+                  <label style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    padding: '6px 14px',
+                    fontSize: '12.5px',
+                    fontWeight: '600',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    background: 'rgba(59, 130, 246, 0.15)',
+                    border: '1px solid rgba(59, 130, 246, 0.35)',
+                    color: '#60a5fa',
+                    transition: 'all 0.2s ease'
+                  }}>
+                    <Upload size={14} /> Upload .yaml File
+                    <input
+                      type="file"
+                      accept=".yaml,.yml,.json"
+                      style={{ display: 'none' }}
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          const reader = new FileReader();
+                          reader.onload = (event) => {
+                            setYamlContent(event.target?.result as string || '');
+                          };
+                          reader.readAsText(file);
+                        }
+                      }}
+                    />
+                  </label>
+                </div>
                 <textarea
                   className="form-input"
                   style={{
