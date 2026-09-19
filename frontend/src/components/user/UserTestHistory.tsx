@@ -55,7 +55,7 @@ export const UserTestHistory: React.FC<UserTestHistoryProps> = ({
   const [isDetailLoading, setIsDetailLoading] = useState(false);
   const [downloadingId, setDownloadingId] = useState<number | null>(null);
 
-  const BACKEND_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+  const BACKEND_URL = import.meta.env.VITE_API_URL !== undefined && import.meta.env.VITE_API_URL !== '' ? import.meta.env.VITE_API_URL : (import.meta.env.DEV ? 'http://127.0.0.1:8000' : '');
 
   const fetchHistory = async () => {
     setIsLoading(true);

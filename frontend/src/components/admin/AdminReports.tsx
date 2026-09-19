@@ -28,7 +28,7 @@ export const AdminReports: React.FC<AdminReportsProps> = ({
   const [exportFormat, setExportFormat] = useState<'csv' | 'json'>('csv');
   const [exportDateFilter, setExportDateFilter] = useState<'all' | 'today' | '7d' | '30d'>('all');
 
-  const BACKEND_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+  const BACKEND_URL = import.meta.env.VITE_API_URL !== undefined && import.meta.env.VITE_API_URL !== '' ? import.meta.env.VITE_API_URL : (import.meta.env.DEV ? 'http://127.0.0.1:8000' : '');
 
   const fetchReports = async () => {
     setIsLoading(true);

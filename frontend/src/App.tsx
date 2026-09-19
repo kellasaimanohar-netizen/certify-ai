@@ -53,7 +53,7 @@ interface Toast {
   type: 'success' | 'error' | 'warning' | 'info';
 }
 
-const BACKEND_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+import { BACKEND_URL } from './utils/apiConfig';
 
 const DEFAULT_SYED: AdminUser = {
   id: 1,

@@ -7,7 +7,7 @@ export const ReportsView: React.FC<{ selectedAgent: AgentTarget | null; onDownlo
   const [realReports, setRealReports] = useState<any[]>([]);
   const [cachedAgents, setCachedAgents] = useState<Record<string, any>>({});
   const [isLoading, setIsLoading] = useState(true);
-  const BACKEND_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+  const BACKEND_URL = import.meta.env.VITE_API_URL !== undefined && import.meta.env.VITE_API_URL !== '' ? import.meta.env.VITE_API_URL : (import.meta.env.DEV ? 'http://127.0.0.1:8000' : '');
 
   useEffect(() => {
     Promise.all([

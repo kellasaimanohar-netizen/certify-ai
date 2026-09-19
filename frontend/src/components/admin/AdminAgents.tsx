@@ -26,7 +26,7 @@ export const AdminAgents: React.FC = () => {
   const [agentDetail, setAgentDetail] = useState<any | null>(null);
   const [isDetailLoading, setIsDetailLoading] = useState(false);
 
-  const BACKEND_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+  const BACKEND_URL = import.meta.env.VITE_API_URL !== undefined && import.meta.env.VITE_API_URL !== '' ? import.meta.env.VITE_API_URL : (import.meta.env.DEV ? 'http://127.0.0.1:8000' : '');
 
   const fetchAgents = async () => {
     setIsLoading(true);

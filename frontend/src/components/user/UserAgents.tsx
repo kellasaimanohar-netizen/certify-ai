@@ -43,7 +43,7 @@ export const UserAgents: React.FC<UserAgentsProps> = ({
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedAgentHistory, setSelectedAgentHistory] = useState<any | null>(null);
 
-  const BACKEND_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+  const BACKEND_URL = import.meta.env.VITE_API_URL !== undefined && import.meta.env.VITE_API_URL !== '' ? import.meta.env.VITE_API_URL : (import.meta.env.DEV ? 'http://127.0.0.1:8000' : '');
 
   const fetchAgents = async () => {
     setIsLoading(true);

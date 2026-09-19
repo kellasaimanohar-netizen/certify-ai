@@ -43,7 +43,7 @@ export const AdminUsers: React.FC = () => {
   const [newDept, setNewDept] = useState('AI Quality Assurance & Testing');
   const [addError, setAddError] = useState('');
 
-  const BACKEND_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+  const BACKEND_URL = import.meta.env.VITE_API_URL !== undefined && import.meta.env.VITE_API_URL !== '' ? import.meta.env.VITE_API_URL : (import.meta.env.DEV ? 'http://127.0.0.1:8000' : '');
 
   const fetchUsers = async () => {
     setIsLoading(true);

@@ -31,7 +31,7 @@ export const UserReports: React.FC<UserReportsProps> = ({
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCert, setSelectedCert] = useState<any | null>(null);
 
-  const BACKEND_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+  const BACKEND_URL = import.meta.env.VITE_API_URL !== undefined && import.meta.env.VITE_API_URL !== '' ? import.meta.env.VITE_API_URL : (import.meta.env.DEV ? 'http://127.0.0.1:8000' : '');
 
   const fetchReports = async () => {
     setIsLoading(true);
