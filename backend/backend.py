@@ -148,6 +148,7 @@ app.include_router(admin_router)
 app.include_router(targets_router)
 
 @app.get("/")
+@app.get("/health")
 @app.get("/api/health")
 def health_check():
     return {

@@ -5,7 +5,7 @@ import uuid
 from datetime import datetime, timezone
 from database import get_db_connection, hash_password
 
-router = APIRouter(prefix="/api/auth", tags=["auth"])
+router = APIRouter(prefix="", tags=["auth"])
 
 
 class LoginRequest(BaseModel):
@@ -14,6 +14,8 @@ class LoginRequest(BaseModel):
     remember_me: Optional[bool] = True
 
 
+@router.post("/api/auth/login")
+@router.post("/auth/login")
 @router.post("/login")
 def login(req: LoginRequest):
     """Authenticates user (Syed as ADMIN or Manohar as USER) and returns profile + token."""
