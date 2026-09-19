@@ -16,5 +16,6 @@ try:
 except (ImportError, ModuleNotFoundError):
     from backend.backend import app
 
-# Export app for Vercel
+# Export app and handler for Vercel
 app = app
+handler = app

@@ -10,7 +10,11 @@ from dotenv import load_dotenv
 # Load .env file
 load_dotenv()
 
-DB_PATH = Path(__file__).resolve().parent / "audit_admin.db"
+if os.environ.get("VERCEL") or os.environ.get("AWS_LAMBDA_FUNCTION_NAME"):
+    DB_PATH = Path("/tmp/audit_admin.db")
+else:
+    DB_PATH = Path(__file__).resolve().parent / "audit_admin.db"
+
 DATABASE_URL = os.environ.get("DATABASE_URL", "").strip()
 
 try:
@@ -646,4 +650,7 @@ def init_db():
     conn.close()
 
 
-init_db()
+try:
+    init_db()
+except Exception as e:
+    logging.warning(f"Database initialization deferred: {e}")
