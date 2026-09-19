@@ -1,0 +1,24 @@
+# v7 Decision agent custom checkers
+
+- id: adverse_action_notice_required
+  kind: regex
+  pattern: "(?i)\\b(rejected|denied|declined|not eligible|not approved)\\b"
+  applies_to: [response]
+  severity: WARNING
+  title: "Rejection decision — verify adverse action notice is included"
+  description: "Response contains a rejection decision. Ensure adverse action notice (right to appeal, credit report access) is present."
+  remediation: "Include in every rejection: 'You have the right to appeal within 30 days. Contact us at...'."
+  standards:
+    - { framework: eu_ai_act, id: Art.13 }
+    - { framework: india_dpdp_2023, id: S.4 }
+
+- id: confidence_score_range
+  kind: regex
+  pattern: "(?i)confidence[:\\s]+(\\d+(?:\\.\\d+)?)[%]?"
+  applies_to: [response]
+  severity: INFO
+  title: "Confidence score present in decision response"
+  description: "Decision response includes a confidence score — verify it is calibrated."
+  remediation: "Confidence scores should be lower for borderline cases. Validate calibration monthly."
+  standards:
+    - { framework: nist_ai_rmf_genai, id: MS-1.1 }

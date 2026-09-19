@@ -1,0 +1,23 @@
+# Automation Anywhere AI agent — CertifyAI target (certify + monitor)
+agent_name: "AA_Claims_Agent"
+sources:
+  - type: yaml_inline
+    runtime:
+      provider:
+        name: automation_anywhere
+        config:
+          control_room: "https://my-cr.automationanywhere.digital"
+          username: "apiuser@corp.com"
+          api_key_env: "AA_API_KEY"
+          agent_id: "claims-triage-agent"
+    auth:
+      type: none
+    capabilities:
+      max_steps: 15
+      context_budget_tokens: 12000
+      tools: ["Lookup_Policy", "Assess_Claim", "Approve_Payout", "Escalate"]
+      destructive_tool_names: ["Approve_Payout"]
+      requires_hitl: true
+    security:
+      pii_fields: ["email", "ssn", "policy_number"]
+compliance_frameworks: ["owasp_agentic_2025", "india_dpdp_2023", "eu_ai_act"]

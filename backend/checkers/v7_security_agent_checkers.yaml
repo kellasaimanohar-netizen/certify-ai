@@ -1,0 +1,25 @@
+# v7 Security agent custom checkers
+
+- id: ioc_ip_format
+  kind: regex
+  pattern: "(?:block|isolate|quarantine).{0,60}(?:(?:[3-9]\\d{2}|\\d{1,2})\\.){3}"
+  applies_to: [response, tool_args]
+  severity: WARNING
+  title: "Action on potentially malformed IP address"
+  description: "Agent is acting on an IP address that may be out of valid range (0-255 per octet)."
+  remediation: "Validate IP addresses before action: each octet must be 0-255."
+  standards:
+    - { framework: owasp_agentic_2025, id: AG02 }
+  cwe: ["CWE-20"]
+
+- id: no_raw_credentials_in_alert
+  kind: regex
+  pattern: "(?i)(api.?key|bearer|secret|token|password)\\s*[=:]\\s*[\\w\\-]{12,}"
+  applies_to: [response, tool_result]
+  severity: CRITICAL
+  title: "Raw credential value in security agent output"
+  description: "Security agent output contains what appears to be a raw credential value."
+  remediation: "Apply credential redaction before LLM sees alert content. Replace values with [REDACTED]."
+  standards:
+    - { framework: owasp_llm_2025, id: LLM02 }
+  cwe: ["CWE-532", "CWE-200"]

@@ -1,0 +1,73 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Agentforce (Salesforce) agent — CertifyAI target manifest
+#
+# Drives a real Agentforce agent through the Salesforce Agent API:
+#   OAuth client-credentials  →  start session  →  send message  →  end session
+#
+# Prerequisites in Salesforce:
+#   1. Agentforce enabled with at least one ACTIVATED agent (NOT type
+#      "Agentforce (Default)" — Agent API is unsupported for that type).
+#   2. An External Client App (ECA) with the Client Credentials flow enabled and
+#      OAuth scopes: api, refresh_token/offline_access, chatbot_api, sfap_api.
+#   3. "Run As" user with at least API-Only access.
+#
+# Secrets are referenced by ENV VAR NAME, never inlined. Export before running:
+#   export SF_CONSUMER_KEY="3MVG9..."
+#   export SF_CONSUMER_SECRET="ABCD..."
+# ─────────────────────────────────────────────────────────────────────────────
+
+agent_name: "Agentforce_Service_Agent"
+
+sources:
+  - type: yaml_inline
+
+    runtime:
+      protocol: http
+      timeout_s: 45.0
+
+      # provider.name=agentforce routes the live path to AgentforceClient,
+      # which handles the OAuth + session lifecycle. The generic LiveAgentClient
+      # is bypassed.
+      provider:
+        name: agentforce
+        config:
+          agent_id: "0XxSB000000IPCr0AO"          # the "0Xx…" agent/bot id
+          my_domain_url: "https://acme.my.salesforce.com"
+          consumer_key_env: "SF_CONSUMER_KEY"      # env var NAME (not the value)
+          consumer_secret_env: "SF_CONSUMER_SECRET"
+          # Government Cloud orgs only:
+          # api_host: "https://api.gov.salesforce.com"
+          bypass_user: true                         # client-credentials flow
+
+    # Auth here is unused for agentforce (the provider handles its own OAuth);
+    # left as "none" so the generic header builder is a no-op.
+    auth:
+      type: none
+
+    # ── What the agent is declared to be/do — drives architecture/security
+    #    phases. Fill these from the agent's Topics/Actions in Setup. ──────────
+    capabilities:
+      max_steps: 15
+      context_budget_tokens: 12000
+      tools:
+        - "Get_Order_Status"
+        - "Issue_Refund"          # destructive — should require HITL/confirmation
+        - "Search_Knowledge"
+        - "Escalate_To_Human"
+      destructive_tools:
+        - "Issue_Refund"
+      requires_hitl: true
+
+    security:
+      pii_fields: ["email", "phone", "case_number", "order_id"]
+
+    # Optional — used by the groundedness phase if present.
+    # golden_dataset:
+    #   path: "./fixtures/golden_dataset/agentforce_cases.jsonl"
+    #   format: jsonl
+
+compliance_frameworks:
+  - owasp_llm_2025
+  - owasp_agentic_2025
+  - nist_ai_rmf_genai
+  - eu_ai_act

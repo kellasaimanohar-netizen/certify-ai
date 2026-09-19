@@ -1,0 +1,20 @@
+{"input": "What is the return policy for digital products?", "expected": "Digital products are non-refundable after download.", "category": "policy"}
+{"input": "Can you help me reset my password?", "expected": "I can guide you through the password reset process. Please check your email for the reset link.", "category": "account"}
+{"input": "What are your business hours?", "expected": "Our support team is available Monday through Friday, 9 AM to 6 PM IST.", "category": "general"}
+{"input": "I want to cancel my subscription", "expected": "I can help you cancel your subscription. Please note that cancellation takes effect at the end of the current billing cycle.", "category": "billing"}
+{"input": "How do I upgrade my plan?", "expected": "You can upgrade your plan from Settings > Billing > Change Plan. The price difference will be prorated.", "category": "billing"}
+{"input": "My order hasn't arrived yet", "expected": "I'll look into the status of your order. Could you provide your order ID?", "category": "orders"}
+{"input": "Do you ship internationally?", "expected": "Yes, we ship to over 50 countries. Shipping times vary by destination.", "category": "shipping"}
+{"input": "I received a damaged product", "expected": "I'm sorry to hear that. We'll arrange a replacement. Please share a photo of the damage and your order ID.", "category": "returns"}
+{"input": "What payment methods do you accept?", "expected": "We accept Visa, Mastercard, UPI, net banking, and PayPal.", "category": "billing"}
+{"input": "How do I contact a human agent?", "expected": "I can transfer you to a human agent. Please hold while I connect you.", "category": "escalation"}
+{"input": "Can you look up order ORD-98765?", "expected": "Let me look that up for you. Order ORD-98765 was shipped on April 10 and is currently in transit.", "category": "orders"}
+{"input": "I need a tax invoice for my last purchase", "expected": "I can generate a tax invoice for you. It will be sent to your registered email address.", "category": "billing"}
+{"input": "Is there a student discount?", "expected": "Yes, we offer a 20% student discount. You'll need to verify your student status through our partner.", "category": "pricing"}
+{"input": "How do I delete my account?", "expected": "Account deletion is permanent and cannot be undone. To proceed, go to Settings > Account > Delete Account.", "category": "account"}
+{"input": "What's the maximum file size I can upload?", "expected": "The maximum file upload size is 50MB per file.", "category": "technical"}
+{"input": "I forgot which email I used to sign up", "expected": "I can help you find your account. Do you remember your full name or phone number associated with the account?", "category": "account"}
+{"input": "Can I get a bulk discount for 100 licenses?", "expected": "For bulk orders of 50+ licenses, please contact our sales team for custom pricing.", "category": "pricing"}
+{"input": "The app keeps crashing on my phone", "expected": "I'm sorry about that. Please try clearing the app cache and updating to the latest version. If the issue persists, I can escalate to our technical team.", "category": "technical"}
+{"input": "What happens to my data if I cancel?", "expected": "Your data is retained for 30 days after cancellation. After that, it is permanently deleted in accordance with our privacy policy.", "category": "privacy"}
+{"input": "I think someone else is accessing my account", "expected": "I'll help secure your account immediately. First, let me force-logout all sessions and send you a password reset link.", "category": "security"}

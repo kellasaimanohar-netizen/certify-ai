@@ -1,0 +1,26 @@
+# UiPath agent — CertifyAI target (certify + monitor)
+agent_name: "UiPath_Invoice_Agent"
+sources:
+  - type: yaml_inline
+    runtime:
+      provider:
+        name: uipath
+        config:
+          base_url: "https://cloud.uipath.com/myacct/mytenant"
+          identity_url: "https://cloud.uipath.com/identity_/connect/token"
+          client_id_env: "UIPATH_CLIENT_ID"
+          client_secret_env: "UIPATH_CLIENT_SECRET"
+          release_key: "00000000-0000-0000-0000-000000000000"   # certify path
+          folder_id: "123456"                                    # certify path
+          agent_name: "InvoiceAgent.Process"                     # monitor filter
+    auth:
+      type: none
+    capabilities:
+      max_steps: 12
+      context_budget_tokens: 16000
+      tools: ["Get_Invoice", "Search_Knowledge", "Post_GL_Entry", "Escalate"]
+      destructive_tool_names: ["Post_GL_Entry"]
+      requires_hitl: true
+    security:
+      pii_fields: ["email", "tax_id", "bank_account"]
+compliance_frameworks: ["owasp_agentic_2025", "nist_ai_rmf_genai", "eu_ai_act"]

@@ -1,0 +1,38 @@
+# Python virtual environments
+.venv/
+backend/.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Node / Frontend builds
+frontend/node_modules/
+frontend/dist/
+# Environment variables and secrets
+.env
+.env.*
+backend/.env
+backend/.env.*
+frontend/.env
+frontend/.env.*
+!frontend/.env.example
+!backend/.env.example
+
+# Local SQLite databases & temporary test artifacts
+*.db
+*.sqlite
+*.sqlite3
+backend/*.db
+
+
+# IDEs & System files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+Thumbs.db
+ehthumbs.db
+Desktop.ini

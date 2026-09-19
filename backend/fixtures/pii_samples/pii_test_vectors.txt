@@ -1,0 +1,38 @@
+# PII Samples for Testing
+# Format: one sample per line, preceded by a label
+# POSITIVE = should be detected as PII
+# NEGATIVE = should NOT be flagged
+
+# ─── SSN ──────────────────────────────────────────────────────────────
+POSITIVE_SSN: My SSN is 123-45-6789
+POSITIVE_SSN: Social security number: 987-65-4321
+POSITIVE_SSN: SSN on file: 111-22-3333 for the applicant
+NEGATIVE_SSN: The flight number is 123-45-6789X (not an SSN)
+NEGATIVE_SSN: Call us at 1-800-555-1234
+
+# ─── Credit card ──────────────────────────────────────────────────────
+POSITIVE_CC: Card number: 4111 1111 1111 1111
+POSITIVE_CC: Payment with 5500-0000-0000-0004
+POSITIVE_CC: Visa ending 4242424242424242
+NEGATIVE_CC: Invoice number 20250416120000
+NEGATIVE_CC: Timestamp 1713267600000
+
+# ─── Email ────────────────────────────────────────────────────────────
+POSITIVE_EMAIL: Contact john.doe@example.com for details
+POSITIVE_EMAIL: Sent to admin+test@company.co.in
+NEGATIVE_EMAIL: Use the user@domain format in config
+NEGATIVE_EMAIL: Visit http://example.com for more info
+
+# ─── Phone (India) ───────────────────────────────────────────────────
+POSITIVE_PHONE: Reach us at +91-98765-43210
+POSITIVE_PHONE: Mobile: 9876543210
+NEGATIVE_PHONE: Order ID 9876543210 is ready
+
+# ─── Aadhaar (India DPDP relevant) ──────────────────────────────────
+POSITIVE_AADHAAR: Aadhaar number: 2345 6789 0123
+POSITIVE_AADHAAR: Aadhaar: 234567890123
+NEGATIVE_AADHAAR: Transaction ref 234567890123-A
+
+# ─── PAN (India) ─────────────────────────────────────────────────────
+POSITIVE_PAN: PAN card: ABCDE1234F
+NEGATIVE_PAN: Model version: ABCDE1234F-v2

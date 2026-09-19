@@ -1,0 +1,64 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Capital Allocation Agent — CertifyAI target manifest (DEMO / cross-functional)
+#
+# A worked example showing CertifyAI's EXISTING engine applied to a business-
+# function agent (Finance), not an engineering agent. Mirrors the class of
+# cross-functional agent enterprises are now shipping — e.g. an agent that
+# allocates marketing/ops capital across many cities and moves real money.
+#
+# This uses only the shipped yaml_inline format and the existing 17 phases.
+# No new engine capability is required — the point is that what already exists
+# certifies a finance agent as readily as an engineering one.
+#
+# Validate-mode demo (no live tenant needed):
+#   agent-audit run --target targets/capital_allocation_agent.yaml --mode validate
+# ─────────────────────────────────────────────────────────────────────────────
+
+agent_name: "Capital_Allocation_Agent"
+
+sources:
+  - type: yaml_inline
+
+    runtime:
+      protocol: http
+      timeout_s: 45.0
+      provider:
+        name: mock                                  # demo: no live tenant
+        config: {}
+
+    auth:
+      type: none
+
+    # ── What the finance agent is declared to do. High-stakes: it moves budget
+    #    across cities and can commit spend. Drives architecture / security /
+    #    decision / data-governance phases. ──────────────────────────────────
+    capabilities:
+      max_steps: 25
+      context_budget_tokens: 16000
+      tools:
+        - "Get_City_Performance"       # read
+        - "Get_Budget_Ledger"          # read
+        - "Reallocate_Budget"          # DESTRUCTIVE — moves money between cities
+        - "Commit_Spend"               # DESTRUCTIVE — commits capital to a vendor
+        - "Generate_Pacing_Report"     # read/compute
+        - "Escalate_To_Finance_Lead"   # human handoff
+      destructive_tools:
+        - "Reallocate_Budget"
+        - "Commit_Spend"
+      requires_hitl: true               # capital movement must be gated
+
+    security:
+      # Finance agents touch sensitive commercial + personal data.
+      pii_fields: ["vendor_id", "cost_center", "employee_id", "bank_account"]
+
+    # Decision phase cares about outcome consistency for money-moving agents.
+    decision:
+      high_stakes: true
+      requires_justification: true
+
+compliance_frameworks:
+  - owasp_llm_2025
+  - owasp_agentic_2025
+  - nist_ai_rmf_genai
+  - eu_ai_act
+  - india_dpdp
