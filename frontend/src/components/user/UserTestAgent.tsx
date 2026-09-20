@@ -725,19 +725,27 @@ export const UserTestAgent: React.FC<UserTestAgentProps> = ({
             </label>
 
             {/* Source tabs */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '8px', marginBottom: '16px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '8px', marginBottom: '16px' }}>
               {[
                 { id: 'agent_select', label: 'Fleet Agent', icon: Layers },
                 { id: 'yaml', label: 'YAML Editor', icon: FileCode },
+                { id: 'upload_file', label: 'Upload YAML', icon: Upload },
                 { id: 'repo', label: 'Source Repo', icon: GitBranch },
                 { id: 'openapi', label: 'OpenAPI 3.x', icon: Globe }
               ].map(tab => {
                 const Icon = tab.icon;
-                const isActive = inputType === tab.id;
+                const isActive = inputType === tab.id || (tab.id === 'upload_file' && inputType === 'yaml');
                 return (
-                  <button
+                  <label
                     key={tab.id}
-                    onClick={() => setInputType(tab.id as any)}
+                    onClick={() => {
+                      if (tab.id === 'upload_file') {
+                        // Triggers hidden file input
+                        document.getElementById('hidden-yaml-file-input')?.click();
+                      } else {
+                        setInputType(tab.id as any);
+                      }
+                    }}
                     style={{
                       padding: '10px 6px',
                       borderRadius: '8px',
@@ -756,10 +764,27 @@ export const UserTestAgent: React.FC<UserTestAgentProps> = ({
                   >
                     <Icon size={16} />
                     <span>{tab.label}</span>
-                  </button>
+                  </label>
                 );
               })}
             </div>
+            <input
+              id="hidden-yaml-file-input"
+              type="file"
+              accept=".yaml,.yml,.json"
+              style={{ display: 'none' }}
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file) {
+                  const reader = new FileReader();
+                  reader.onload = (event) => {
+                    setYamlContent(event.target?.result as string || '');
+                    setInputType('yaml');
+                  };
+                  reader.readAsText(file);
+                }
+              }}
+            />
 
             {/* Ingestion Source Content */}
             {inputType === 'agent_select' && (
